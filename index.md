@@ -1,8 +1,3 @@
----
-title: "College Basketball Predictive Analysis"
-output: html_document
----
-
 
 ## Project Goal
 
