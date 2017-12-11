@@ -1,37 +1,71 @@
-## Welcome to GitHub Pages
+---
+title: "College Basketball Predictive Analysis"
+output: html_document
+---
 
-You can use the [editor on GitHub](https://github.com/DavidDoesData/daviddoesdata.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+## Project Goal
 
-### Markdown
+This project is an attempt at making a predicitive model for NCAA Div I Men's Basketball games. In addition to predicting winners, we want to predict point spreads.
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+## The Data
 
-```markdown
-Syntax highlighted code block
+I'm scraping it from ESPN.com. I'll need to write a web crawler/scraper to collect the data. Since I'm coding in R, I'll be using Rvest.
 
-# Header 1
-## Header 2
-### Header 3
 
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```R
+install.packages('rvest')
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+This is where we're looking for links to crawl: [ESPN](http://www.espn.com/mens-college-basketball/teams)
 
-### Jekyll Themes
+The url structures we'll be crawling are:
+```
+http://www.espn.com/ncb/teams/schedule?teamId=399
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/DavidDoesData/daviddoesdata.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+```
 
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+The html structure we need to scrape and build a dataset from:
+```
+<tr class="oddrow team-41-314">
+  <td>
+    Fri, Nov 10
+  </td>
+  <td align="left">
+    <ul class="game-schedule">
+      <li class="game-status">
+        vs
+      </li>
+      <li class="team-logo-small logo-ncaa-small">
+        <a href="http://www.espn.com/mens-college-basketball/team/_/id/314/iona-gaels">
+          <img src="http://a.espncdn.com/combiner/i?img=/i/teamlogos/ncaa/500/314.png&amp;w=80&amp;h=80&amp;transparent=true">
+        </a>
+      </li>
+      
+      <li class="team-name">
+        <a href="http://www.espn.com/mens-college-basketball/team/_/id/314/iona-gaels">
+          Iona
+        </a>
+      </li>
+    </ul>
+  </td>
+  <td>
+    <ul class="game-schedule">
+      <li class="game-status win">
+        <span class="greenfont">
+          W
+        </span>
+      </li>
+      
+      <li class="score">
+        <a href="//www.espn.com/ncb/recap/_/gameId/400989985">
+          69-67
+        </a>
+      </li>
+    </ul>
+  </td>
+  <td>
+    1-0 (0-0)
+  </td>
+</tr>
+```
