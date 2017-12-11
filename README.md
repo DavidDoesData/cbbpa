@@ -17,8 +17,9 @@ This is where we're looking for links to crawl: [ESPN](http://www.espn.com/mens-
 
 The url structures we'll be crawling are:
 ```
-http://www.espn.com/ncb/teams/schedule?teamId=399
-
+http://www.espn.com/mens-college-basketball/team/schedule/_/id/XXXX/year/YYYY
+XXXX is the school Id
+YYYY is the year we want
 ```
 
 The html structure we need to scrape and build a dataset from:
