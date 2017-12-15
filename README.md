@@ -1,1 +1,1 @@
-This is the README You should go to [DavidDoesData.com/cbbpa.html](https://DavidDoesData.com/cbbpa.html)
+This is the README You should go to [DavidDoesData.com/cbbpa.html](http://DavidDoesData.com/cbbpa.html)
