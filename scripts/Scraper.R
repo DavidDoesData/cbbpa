@@ -3,6 +3,9 @@
 # http://www.espn.com/mens-college-basketball/team/schedule/_/id/399/year/2018
 # http://www.espn.com/mens-college-basketball/boxscore?gameId=400989985
 
+# Base URLs
+gamesURL <- "http://www.espn.com/mens-college-basketball/team/schedule/_/id/%s/year/%s"
+boxScoresURL <- "http://www.espn.com/mens-college-basketball/boxscore?gameId=%s"
 
 # Column Names For The Tables
 teamTableColNames <- c("TeamId", "Name")
@@ -26,7 +29,7 @@ colnames(boxScores) <- boxScoreTableColNames
 library(rvest)
 
 # Functions
-fillTeamTable <- function(){
+fillTeamsTable <- function(){
   
   teamScreen <- read_html("http://www.espn.com/mens-college-basketball/teams")
   teamNodes <- html_nodes(teamScreen, "h5 a")
@@ -42,18 +45,33 @@ fillTeamTable <- function(){
     teamURL <- html_attr(teamNodes[i], "href")
     # s<-gsub("(.*)@.*","\\1",rs)
     strippedURL <- gsub("(.*)/.*", "\\1/year/2018", teamURL)
-    teamURLs[i] <- strippedURL
     
     # print(teamURL)
     teamId <- regmatches(teamURL, gregexpr("\\d+", teamURL))
     team <- data.frame(c(teamId, teamName))
     colnames(team) <- teamTableColNames
     teams <- rbind(teams, team)
+    # teamURLs[i] <- sprintf(gamesURL, teamId, 2018)
   }
   
-  print(head(teamURLs))
+  # print(head(teamURLs))
 }
+
+fillGamesTable <- function(){
+  # What needs to happen?
+  # For Each item in the teams table
+  # Go to the games page: gamesURL
+  
+  targetYear <- 2018
+  for(i in 1:length(teams)){
+    gameScreen <- html_read(sprintf(gamesURL, teams[1], targetYear))
+    
+  }
+  
+}
+
+fillBoxScoresTable < function(){}
 
 
 # Call some functions, I guess
-fillTeamTable()
+fillTeamsTable()
